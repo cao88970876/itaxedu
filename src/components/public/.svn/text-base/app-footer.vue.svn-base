@@ -1,0 +1,81 @@
+<template>
+    <div class="app-footer">
+        <footer class="footer">
+            <div class="about">
+                <section class="clear">
+                    <div class="left">
+                        <div class="title">联系我们</div>
+                        <div class="info-list">
+                            <span class="icon addr"></span>
+                            <span>公司地址：北京市海淀区高梁桥斜街59号中坤大厦1506室</span>
+                        </div>
+                        <div class="info-list">
+                            <span class="icon telp"></span>
+                            <span>咨询电话：010-62125862 &nbsp; 010-62127933</span>
+                        </div>
+                        <div class="info-list">
+                            <span class="icon chuz"></span>
+                            <span>传真：010-81503170</span>
+                        </div>
+                        <div class="info-list">
+                            <span class="icon netpath"></span>
+                            <span>网址：www.cctax.net</span>
+                        </div>
+                    </div>
+                    <div class="right"></div>
+                </section>
+            </div>
+            <div class="company-info">
+                <div>@88888888.com 京ICP证备888888号 京公安网备案88888888号</div>
+                <div>违法和不良信息举报电话：88888888</div>
+            </div>
+        </footer>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "app-footer",
+    }
+</script>
+
+<style lang="scss" scoped>
+    @import "../../assets/scss/mixin";
+    .app-footer {
+        .footer {
+            width: 100%;
+            color: #fff;
+
+            section {
+                width: 1200px;
+                margin: auto;
+            }
+
+            .about {
+                background-color: #999;
+                padding: 25px 0;
+                .title {
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                }
+                .info-list {
+                    margin: 10px 0;
+                }
+                .icon {
+                    @include size(16px, 16px);
+                    vertical-align: bottom;
+                    margin-right: 5px;
+                }
+            }
+
+            .company-info {
+                padding: 10px 0;
+                background-color: #333;
+                text-align: center;
+                div {
+                    margin: 10px;
+                }
+            }
+        }
+    }
+</style>

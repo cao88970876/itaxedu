@@ -1,0 +1,56 @@
+//公用图标
+.icon {
+    display: inline-block;
+    background-size: cover;
+    vertical-align: bottom;
+
+    @mixin autoIcon ($className, $iconUrl) {
+        &.#{$className} {
+            background: url('../image/#{$iconUrl}.png') no-repeat center;
+            background-size: contain;
+        }
+    }
+
+    @include autoIcon(logo, logo);
+    @include autoIcon(business, ic_7);
+    @include autoIcon(heart, ic_8);
+    @include autoIcon(heart_active, ic_9);
+    @include autoIcon(addr, ic_10);
+    @include autoIcon(telp, ic_11);
+    @include autoIcon(chuz, ic_12);
+    @include autoIcon(netpath, ic_13);
+    @include autoIcon(search-null, ic_33);
+    @include autoIcon(block-chain, ic_34);
+    @include autoIcon(star, ic_35);
+    @include autoIcon(star-active, ic_35_pressed);
+    @include autoIcon(waiter, ic_36);
+    @include autoIcon(shoppe, ic_37);
+    @include autoIcon(we-friend, ic_38);
+    @include autoIcon(we-circle, ic_39);
+    @include autoIcon(weblog, ic_40);
+    @include autoIcon(qq, ic_41);
+    @include autoIcon(check-right, ic_50);
+    @include autoIcon(to-left, ic_53);
+    @include autoIcon(to-right, ic_54);
+    @include autoIcon(price-order, ic_55);
+    @include autoIcon(wechat-pay, ic_56);
+    @include autoIcon(ali-pay, ic_57);
+    @include autoIcon(balance-pay, ic_58);
+    @include autoIcon(pay-success, ic_59);
+    @include autoIcon(pay-failed, ic_60);
+    @include autoIcon(clock, ic_64);
+    @include autoIcon(book, ic_65);
+    @include autoIcon(fabulous, ic_66);
+    @include autoIcon(fabulous-active, ic_67);
+    @include autoIcon(dir-icon, ic_70);
+    @include autoIcon(font-small, ic_71);
+    @include autoIcon(font-big, ic_72);
+    @include autoIcon(modal-close, ic_73);
+    @include autoIcon(add-btn, ic_75);
+    @include autoIcon(radio-no-checked, ic_77);
+    @include autoIcon(radio-checked, ic_78);
+    @include autoIcon(cancel-checked, ic_112_pressed);
+    @include autoIcon(red-packets, ic_114);
+    @include autoIcon(edit, ic_115);
+
+}

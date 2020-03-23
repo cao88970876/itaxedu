@@ -1,0 +1,337 @@
+@import "./constant";
+@import "./mixin";
+
+@mixin marginPaddingAuto($num) {
+    $interval: 5;
+    $type: (m margin) (p padding);
+    $direction: (t top) (r right) (b bottom) (l left);
+    .m-auto {
+        margin: 0 auto;
+    }
+    @each $t in $type {
+        .#{nth($t, 1)} {
+            @for $i from 0 through round($num/$interval) {
+                &-#{$i*$interval} {
+                    #{nth($t, 2)}: #{$i*$interval}px !important;
+                }
+            }
+            @each $item in $direction {
+                &#{nth($item, 1)} {
+                    @for $i from 0 through round($num/$interval) {
+                        &-#{$i*$interval} {
+                            #{nth($t, 2)+'-'+nth($item, 2)}: #{$i*$interval}px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include marginPaddingAuto(70);
+
+a {
+    text-decoration: none;
+}
+
+.btn_red {
+    background-color: $fontColorRed;
+    padding: 12px 70px;
+    border-color: $fontColorRed;
+    color: white;
+}
+
+.btn_blue {
+    background-color: $fontColorBlue;
+    padding: 12px 70px;
+    border-color: $fontColorBlue;
+    color: white;
+}
+
+.btn_gre {
+    background-color: #666666;
+    padding: 12px 70px;
+    border-color: #666666;
+    color: white;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    &:after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        clear: both;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: 'Microsoft YaHei';
+    color: #333;
+}
+
+.page-content {
+    width: 1200px;
+    margin: 20px auto;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 13px;
+}
+
+.current-price {
+    color: $fontColorRed;
+    font-size: 13px;
+}
+
+.money {
+    &:before {
+        content: '￥';
+    }
+    //&:after {
+    //    content: '元';
+    //}
+}
+
+.free-money {
+    color: $fontColorBlue;
+}
+
+.ellipsis-2 {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ellipsis-m {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gray-font {
+    color: #999;
+}
+
+.course-content {
+    img {
+        max-width: 100%;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+.break-word {
+    word-wrap: break-word;
+}
+.el-message-box {
+    .el-message-box__btns {
+        .el-button--primary {
+            background-color: $fontColorRed;
+            border-color: $fontColorRed;
+        }
+    }
+}
+
+//.video-js {
+//    .vjs-big-play-button {
+//        border-radius: 100%;
+//        width: 2em;
+//        margin-left: -1em;
+//    }
+//}
+
+.shadow-default {
+    box-shadow: 0 0 10px #999;
+    overflow: hidden;
+}
+
+// 临时占位样式
+.temp-img {
+    background-color: #999;
+}
+
+.ul-clear {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.data-item {
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #999;
+    overflow: hidden;
+}
+
+// 面包屑
+.crumbs {
+    padding: 10px 0;
+    list-style: none;
+    font-size: 14px;
+    color: #333;
+
+    li {
+        & + li {
+            &:before {
+                content: '>';
+                margin: 0 5px;
+            }
+        }
+    }
+}
+
+.data-list {
+    & > .my-course-item,
+    & > .my-book-item,
+    & > .course-item,
+    & > .goods-item,
+    & > .book-item {
+        @include dataItem('4n+1');
+    }
+    & > .my-store-item {
+        @include dataItem('3n+1');
+    }
+    & > .my-special-item,
+    & > .project-item,
+    & > .answer-item,
+    & > .special-item {
+        @include dataItem('2n+1');
+    }
+}
+
+.course-list, .book-list {
+    & > .course-item, & > .book-item {
+        @include dataItem('4n+1');
+    }
+}
+
+.special-list > .special-item {
+    @include dataItem('2n+1');
+}
+
+.dy-control {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px 10px;
+    height: 36px;
+    width: 100%;
+}
+
+.commit-btn {
+    display: block;
+    color: #fff;
+    background-color: $fontColorRed;
+    border-radius: 7px;
+    width: 160px;
+    line-height: 40px;
+    text-align: center;
+    margin-left: 125px;
+    font-size: 14px;
+}
+
+.dy-step-bar {
+    @include borderBox();
+
+    li {
+        position: relative;
+        left: 20px;
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -16px;
+            top: 3px;
+            @include size(11px);
+            border-radius: 100px;
+            border: 1px solid $fontColorRed;
+            background-color: $fontColorRed;
+            box-shadow: 0 0 5px $fontColorRed;
+        }
+        &:last-child {
+            &:after {
+                content: none;
+            }
+        }
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -10px;
+            top: 3px;
+            border-left: 1px solid $fontColorRed;
+            height: 100%;
+        }
+    }
+}
+
+// 个人中心公共样式
+.personal-center-modules {
+    .module-name {
+        font-size: 16px;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    .module-nav {
+        border-bottom: 1px solid #eee;
+        ul {
+            margin-bottom: -1px;
+            li {
+                line-height: 40px;
+                user-select: none;
+                &.active {
+                    color: $fontColorRed;
+                    border-bottom: 1px solid $fontColorRed;
+                }
+            }
+        }
+    }
+}
+
+// 登录提示
+.login-tip {
+    text-align: center;
+    line-height: 55px;
+}
+
+.modal-btn {
+    text-align: center;
+    a {
+        display: inline-block;
+        padding: 5px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+}

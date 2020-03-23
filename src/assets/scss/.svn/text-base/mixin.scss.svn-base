@@ -1,0 +1,46 @@
+@mixin panelUl($width, $height, $lineSet) {
+    list-style: none;
+    & > li {
+        box-sizing: border-box;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #999;
+        margin-top: 20px;
+        margin-left: 20px;
+        overflow: hidden;
+        width: $width;
+        height: $height;
+
+        &:nth-of-type(#{$lineSet}) {
+            margin-left: 0;
+        }
+    }
+}
+
+@mixin dataItem($lineSet) {
+    margin: 20px 0 0 20px;
+    &:nth-of-type(#{$lineSet}) {
+        margin-left: 0;
+    }
+}
+
+@mixin size($width, $height:null) {
+    width: $width;
+    @if $height != null {
+        height: $height;
+    } @else {
+        height: $width;
+    }
+}
+
+@mixin borderBox() {
+    &, * {
+        box-sizing: border-box;
+    }
+}
+
+@mixin imgCover() {
+    img {
+        @include size(100%);
+        object-fit: cover;
+    }
+}

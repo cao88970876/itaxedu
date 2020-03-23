@@ -1,0 +1,156 @@
+<template>
+    <div class="app-header">
+        <header class="header clear">
+            <div class="icon logo left pointer" @click="$router.push({name:'index'})"></div>
+            <div class="left">
+                <ul v-show="!hasLogin">
+                    <li class="left">
+                        <router-link class="login-link" :to="{name: 'login'}">登录</router-link>
+                    </li>
+                    <li class="left">
+                        <router-link class="register-link" :to="{name: 'register'}">注册</router-link>
+                    </li>
+                </ul>
+                <ul v-show="hasLogin">
+                    <li class="left">
+                        <a class="register-link pointer" v-text="userInfo.nickname"></a>
+                    </li>
+                    <li class="left">
+                        <a class="pointer" @click="logOut">退出</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul class="about-us">
+                    <li class="left">
+                        <router-link :to="{name: 'aboutUs'}">关于我们</router-link>
+                    </li>
+                    <li class="left">
+                        <router-link :to="{name: 'helpUs'}">帮助我们</router-link>
+                    </li>
+                    <li class="left pointer">
+                        <a @click="goOpinion" >意见反馈</a>
+                    </li>
+                    <li class="left pointer" >
+                        <a @click="goMessage" >消息中心</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <self-modal :show.sync="loginTip">
+            <div class="pb-30">
+                <div class="login-tip">欢迎来到中财讯</div>
+                <div class="modal-btn">
+                    <a class="pointer" @click="$router.push({name: 'login'})">去登录</a>
+                    <a class="pointer ml-20" @click="loginTip=false">先看看</a>
+                </div>
+            </div>
+        </self-modal>
+    </div>
+</template>
+
+<script>
+    import SelfModal from '../../components/public/self-modal'
+    export default {
+        name: "app-header",
+        components: {
+            SelfModal,
+        },
+        data() {
+            return {
+                hasLogin: false,
+                userInfo: this.$helper.utils.storage.get('userInfo') || {},
+                loginTip: false,
+            }
+        },
+        mounted() {
+            if (this.userInfo.uid) {
+                this.hasLogin = true
+            } else {
+                let temp = JSON.parse(localStorage.getItem('userInfo')) || {}
+                if (temp.uid) {
+                    this.userInfo = temp
+                    this.hasLogin = true
+                }
+            }
+        },
+        methods: {
+            logOut() {
+                sessionStorage.removeItem('userInfo')
+                localStorage.removeItem('userInfo')
+                sessionStorage.removeItem('loginLink')
+                this.hasLogin = false
+                this.userInfo = {}
+                this.$router.push({name: 'index'})
+            },
+            goOpinion(){
+                if (!this.userInfo.uid) {
+                    this.loginTip = true
+                    return false
+                }
+                this.$router.push({name:'opinion'})
+            },
+            goMessage(){
+                if (!this.userInfo.uid) {
+                    this.loginTip = true
+                    return false
+                }
+                this.$router.push({name:'dialogueMessage'})
+            },
+
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    @import "../../assets/scss/mixin";
+
+    .app-header {
+        .header {
+            border-bottom: 1px solid #f1f1f1;
+            padding: 20px 10px;
+            line-height: 30px;
+
+            & > div {
+                ul {
+                    list-style: none;
+                    li {
+                        position: relative;
+                        a {
+                            margin: 0 10px;
+                            color: #000;
+                            &.login-link {
+                                color: #f54b3e;
+                            }
+                            &.register-link {
+                                color: #303f9f;
+                            }
+                        }
+                        & + li {
+                            &:before {
+                                content: '';
+                                display: inline-block;
+                                width: 1px;
+                                height: 12px;
+                                background-color: #cdcdcd;
+                                position: absolute;
+                                top: 9px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .about-us {
+                li > a {
+                    color: #333;
+                }
+            }
+
+            .logo {
+                @include size (120px, 30px);
+            }
+
+        }
+    }
+</style>

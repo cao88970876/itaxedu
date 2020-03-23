@@ -1,0 +1,13 @@
+K 18
+svn:global-ignores
+V 13
+*.idea
+.idea
+
+K 10
+svn:ignore
+V 20
+*.idea
+node_modules
+
+END

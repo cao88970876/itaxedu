@@ -1,0 +1,98 @@
+<template>
+    <section class="message-item-wrap">
+        <!--<label class="message-time">1月18日 12:30</label>-->
+      
+      <div v-if="data.type == 2" class="info">
+
+          <div  :class="[data.isMe?'message-me':'message-other']">
+            <div v-for="(msg) in data.msg" >
+               <div @click="postQuestion(msg.q, msg.a)"  style="padding:5px" v-html="msg.q"></div>
+            </div>
+           
+          </div>
+      </div>
+
+       <div v-else class="info">
+        <div  :class="[data.isMe?'message-me':'message-other']">
+            <div v-html="data.msg"></div>
+          </div>
+       </div>
+        <!--<div class="message-me">嗯，你好！</div>-->
+    </section>
+</template>
+<script>
+
+ 
+
+    export default {
+        name: "MessageItem",
+        data() {
+            return {};
+        },
+        props: {
+            data: {
+                type: Object,
+                default: () => {
+                    return {}
+                }
+            }
+        },
+        created() {
+        },
+        methods: {
+             postQuestion(q, a) {
+
+         this.$parent.messageData.push({
+              isMe: true,
+              type: '',
+              msg: q
+            });
+
+          this.$parent.messageData.push({
+              isMe: false,
+              type: '',
+              msg: a
+            });
+
+           this.$parent.scrollBottom();
+      }
+        }
+    };
+</script>
+<style lang="scss" scoped>
+    .message-item-wrap {
+        display: inline-block;
+        width: 100%;
+        .message-other,
+        .message-me {
+            width: fit-content;
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            // width: auto;
+            padding: 10px 14px;
+            font-size: 15px;
+            margin-top: 16px;
+        }
+        .message-other {
+            float: left;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            color: #333333;
+            border-radius: 0 10px 10px 10px;
+        }
+        .message-me {
+            float: right;
+            background: #303f9f;
+            border: 1px solid #303f9f;
+            border-radius: 10px 0 10px 10px;
+            color: #ffffff;
+        }
+        .message-time {
+            display: block;
+            font-size: 12px;
+            color: #999999;
+            text-align: center;
+            margin: 0.12rem 0 0 0;
+        }
+    }
+</style>

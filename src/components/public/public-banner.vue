@@ -1,0 +1,122 @@
+<template>
+    <div class="public-banner mt-20">
+        <carousel trigger="click" height="450px">
+            <carousel-item v-for="item in bannerList" :key="item.id">
+                <img class="banner-img pointer" :src="imgPath+item.img_url" @click="goPage(item)">
+            </carousel-item>
+        </carousel>
+    </div>
+</template>
+
+<script>
+    import {Carousel, CarouselItem} from 'element-ui'
+    import {commonApi, utilsApi} from '../../api'
+    export default {
+        name: "public-banner",
+        props: ['type'],
+        components: {
+            Carousel, CarouselItem
+        },
+        data() {
+            return {
+                imgPath: utilsApi.api,
+                bannerList: [],
+                moldHandle: {
+                    specialDetail: 2,
+                    CourseDetail: 3,
+                    booksDetail: 4,
+                }
+            }
+        },
+        mounted() {
+            commonApi.bannerList({type:this.type}).then(resp => {
+                if (resp.status === 1) {
+                    this.bannerList = resp.data
+                }
+            })
+        },
+        methods: {
+            goPage(item) {
+                let name = ''
+                let params = {}
+                let query = {}
+                switch (item.mold) {
+                    case 2: {
+                        name = 'specialDetail'
+                        params = {id: item.pid}
+                        break
+                    }
+                    case 3: {
+                        if (item.course_type === 1) {
+                            name = 'liveCourseDetail'
+                        } else if (item.course_type === 2) {
+                            name = 'videoCourseDetail'
+                        } else if (item.course_type === 3) {
+                            name = 'downlineCourseDetail'
+                        }
+                        params = {courseId: item.pid, tabId: 0}
+                        break
+                    }
+                    case 4: {
+                        name = 'booksDetail'
+                        params = {id: item.pid}
+                        break
+                    }
+                    case 5: {
+                        name = 'projectDetails'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 1: {
+                        name = 'goodsDetailed'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 8: {
+                        name = 'recruitDetails'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 9: {
+                        name = 'taskDetails'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 7: {
+                        name = 'financeTaxDetail'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 6: {
+                        name = 'expertDetails'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 8: {
+                        name = 'taskDetails'
+                        query = {id: item.pid}
+                        break
+                    }
+                    case 101: {
+                        window.open(item.url, '_blank')
+                        return;
+                    }
+                }
+                this.$router.push({name, params, query})
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .public-banner {
+        border-radius: 10px;
+        overflow: hidden;
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+</style>

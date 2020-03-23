@@ -1,0 +1,227 @@
+/**
+ * 大功能模块路由统一由外部引入，零碎路由在本页面引入
+ */
+import Vue from 'vue'
+import Router from 'vue-router'
+// 课程模块路由
+import course from './course'
+// 商城模块路由
+import good from './goods'
+//项目策划
+import projectPlanning from './projectPlanning'
+//疑答
+import answer from './answer'
+//任务悬赏
+import taskReward from './taskReward'
+//风险评估
+import risk from './risk'
+//智能疑答
+import answerAi from './intelligence'
+// 专栏
+import special from './special'
+// 电子书
+import books from './books'
+//店铺
+import store from './store'
+//招聘
+import recruit from './recruit'
+//用户
+import user from './user'
+//消息中心
+import messageCenter from './MessageCenter'
+
+Vue.use(Router);
+import financeTax from './financeTax'
+
+const router = new Router({
+    routes: [
+        {
+            path: '/',
+            name: 'full',
+            component: () => import('../components/full'),
+            redirect: {name: 'index'},
+            children: [
+                course,
+                good,
+                answer,
+                taskReward,
+                projectPlanning,
+                risk,
+                answerAi,
+                recruit,
+                special,
+                books,
+                store,
+                financeTax,
+                messageCenter,
+                {
+                    path: 'index',
+                    name: 'index',
+                    meta: {
+                        title: '首页'
+                    },
+                    component: () => import('../views/index')
+                },
+                {
+                    path: 'search',
+                    name: 'search',
+                    meta: {
+                        title: '搜索结果'
+                    },
+                    component: () => import('../views/index/search')
+                },
+                {
+                    path: '/user',
+                    name: 'userIndex',
+                    meta: {
+                        title: '个人中心'
+                    },
+                    component: () => import('../views/user/index'),
+                    children: user,
+                    redirect: {name: 'userInform'}
+                },
+                {
+                    path: '/opinion',
+                    name: 'opinion',
+                    meta: {
+                        title: '首页'
+                    },
+                    component: () => import('../views/opinion/opinion')
+                },
+                {
+                    path: 'aboutUs',
+                    name: 'aboutUs',
+                    meta: {
+                        title: '关于我们'
+                    },
+                    component: () => import('../views/aboutUs/aboutUs')
+                },
+                {
+                    path: 'helpDelt',
+                    name: 'helpDelt',
+                    meta: {
+                        title: '帮助详情'
+                    },
+                    component: () => import('../views/helpUs/helpDelt')
+                },
+                {
+                    path: 'helpUs',
+                    name: 'helpUs',
+                    meta: {
+                        title: '帮助我们'
+                    },
+                    component: () => import('../views/helpUs/helpUs')
+                },
+                {
+                    path: 'accountNumber',
+                    name: 'accountNumber',
+                    meta: {
+                        title: '账号问题'
+                    },
+                    component: () => import('../views/helpUs/accountNumber')
+                },
+                {
+                    path: 'pageProblem',
+                    name: 'pageProblem',
+                    meta: {
+                        title: '页面问题'
+                    },
+                    component: () => import('../views/helpUs/pageProblem')
+                },
+                {
+                    path: 'videoProblem',
+                    name: 'videoProblem',
+                    meta: {
+                        title: '视频问题'
+                    },
+                    component: () => import('../views/helpUs/videoProblem')
+                },
+                {
+                    path: 'detailsProblem',
+                    name: 'detailsProblem',
+                    meta: {
+                        title: '账号问题'
+                    },
+                    component: () => import('../views/detailsProblem/detailsProblem')
+                }
+            ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            meta: {
+                title: '登录'
+            },
+            component: () => import('../views/login/login')
+        },
+        {
+            path: '/Close',
+            name: 'Close',
+            meta: {
+                title: '关闭'
+            },
+            component: () => import('../views/login/Close')
+        },
+        {
+            path: '/register',
+            name: 'register',
+            meta: {
+                title: '注册'
+            },
+            component: () => import('../views/login/register')
+        },
+        {
+            path: '/binding',
+            name: 'binding',
+            meta: {
+                title: '手机绑定'
+            },
+            component: () => import('../views/login/binding')
+        },
+        {
+            path: '/forgetpwd',
+            name: 'forgetpwd',
+            meta: {
+                title: '忘记密码'
+            },
+            component: () => import('../views/login/forgetpwd')
+        },
+        {
+            path: '/numlogin',
+            name: 'numlogin',
+            meta: {
+                title: '号码登录'
+            },
+            component: () => import('../views/login/numlogin')
+        },
+        {
+            path: '/protocol',
+            name: 'protocol',
+            meta: {
+                title: '用户协议'
+            },
+            component: () => import('../views/login/protocol')
+        },
+        {
+            path: '/choiceFav',
+            name: 'choiceFav',
+            meta: {
+                title: '平台分类'
+            },
+            component: () => import('../views/login/choiceFav')
+        }]
+});
+
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title;
+    if (to.name === 'userInform' && !sessionStorage.getItem('userInfo')) {
+        router.push({name: 'login'})
+    } else {
+        next()
+    }
+});
+router.afterEach((to, from) => {
+    window.scrollTo(0, 0)
+})
+
+export default router;
