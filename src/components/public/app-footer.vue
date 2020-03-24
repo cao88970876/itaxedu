@@ -26,7 +26,7 @@
                 </section>
             </div>
             <div class="company-info">
-                <div>Copyright2016-2020 版权所属：中财讯(江西)智能科技股份有限公司 赣ICP备17006565号-3</div>
+                <div>Copyright2016-2020 版权所属：中财讯(江西)智能科技股份有限公司 <a href="http://www.beian.miit.gov.cn" target="_blank">赣ICP备17006565号-3</a></div>
                 <div>违法和不良信息举报电话：12321</div>
             </div>
         </footer>
@@ -74,6 +74,10 @@
                 text-align: center;
                 div {
                     margin: 10px;
+                }
+                a{
+                    color: #fff;
+                    text-decoration: none;
                 }
             }
         }
