@@ -69,7 +69,6 @@ export default {
         this.xueFenType();
         // this.getList();
         indexApi.index().then(res => {
-            // 直播
             this.dataList = res.data.course_type1;
         })
     },
