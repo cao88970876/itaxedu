@@ -27,26 +27,33 @@
         </div>
 
         <!-- 课程列表 -->
-        <div class="data-list clear" v-html="dataList">
-            <!-- <course-item class="left" v-for="item in dataList" :key="item.id" :course-item="item"></course-item> -->
+         <!-- v-html="dataList" -->
+        <div class="data-list-box">
+            <h2 class="years">2019年度</h2>
+            <p class="xueFen">您已学满<span>91</span>学分，可以获取证书</p>
+            <p class="Tips">您可点击下面的课程进行购买</p>
+            <div class="data-list clear">
+                <course-item class="left" v-for="item in dataList" :key="item.id" :course-item="item"></course-item>
+            </div>
         </div>
+        
         <!-- <pagination :pageInfo="pageInfo" @change-page="changePage"></pagination> -->
         
     </div>
 </template>
 <script>
-import {Navigation,followBox} from '../../components/public'
-import {contentApi,examApi} from '../../api'
+import {Navigation, followBox, CourseItem} from '../../components/public'
+import {contentApi,examApi,indexApi} from '../../api'
 export default {
     name: "examStudy",
-    components: {Navigation,followBox},
+    components: {Navigation, followBox, CourseItem},
     data(){
         return{
             formType: false,
             xueShiType: false,
             classHour: ['','',''],
             userInfo: this.$helper.utils.storage.get('userInfo') || {},
-            dataList: [],
+            dataList: null,
             disabled:true,
             pageInfo: {
                 total: 0,
@@ -60,7 +67,11 @@ export default {
     mounted() {
         this.getForm();
         this.xueFenType();
-        this.getList();
+        // this.getList();
+        indexApi.index().then(res => {
+            // 直播
+            this.dataList = res.data.course_type1;
+        })
     },
     methods: {
         getForm() {
@@ -76,7 +87,7 @@ export default {
         },
         xueFenType() {
             examApi.xueFenType({
-                uid: this.userInfo.uid,//
+                uid: this.userInfo.uid,
                 address_id: this.$route.query.address_id
             }).then(resp => {
                 if (resp.status === 1) {
@@ -109,6 +120,7 @@ export default {
                 }
             });
         },
+        
         // //分页
         // changePage(page) {
         //     this.pageInfo.currentPage = page;
@@ -176,9 +188,30 @@ export default {
         }
         
     }
-    .data-list{
-        min-height: 300px;
+    .data-list-box{
+        margin-bottom: 30px;
+        padding-top: 30px;
+        .years{
+            font-size: 34px;
+            color: #333;
+            margin: 0 0 20px;
+        }
+        .xueFen{
+            margin: 0 0 15px;
+            font-size: 14px;
+            span{
+                color: #E60012;
+            }
+        }
+        .Tips{
+            margin: 0 0 15px;
+            font-size: 16px;
+        }
+        .data-list{
+            min-height: 300px;
+        }
     }
+    
     .examInp-tips{
         display: block;
         height: 18px;

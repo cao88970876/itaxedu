@@ -28,5 +28,7 @@ export default utilsApi.createApi({
     // 进入考试系统
     openEntrance: ['post', '/api/admin_root/xuefen_sign/index'],
     // 获取地区域名
-    addressUrl: ['get', 'api/admin_root/xuefen/domain']
+    addressUrl: ['get', 'api/admin_root/xuefen/domain'],
+    // 学分数据以及学习课程列表
+    studyTime: ['get', 'api/admin_root/xuefen/study_time']
 })
