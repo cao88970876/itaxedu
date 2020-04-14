@@ -6,11 +6,11 @@
         <search-input class="mt-20" v-model="keywords" @search="search"></search-input>
 
         <div class="course-type clear mt-20 mb-20">
-            <router-link class="left" :to="{name: 'videoCourse'}">录播课</router-link>
-            <router-link class="left" :to="{name: 'liveCourse'}">直播课</router-link>
-            <router-link class="left" :to="{name: 'downlineCourse'}">线下课</router-link>
-             <router-link class="left" :to="{name: 'robotCourse'}">机器人专区</router-link>
-             <router-link class="left" :to="{name: 'zjLink'}">专家连线</router-link>
+            <router-link class="left" @click.native="removePageIndex()" :to="{name: 'videoCourse'}">录播课</router-link>
+            <router-link class="left" @click.native="removePageIndex()" :to="{name: 'liveCourse'}">直播课</router-link>
+            <router-link class="left" @click.native="removePageIndex()" :to="{name: 'downlineCourse'}">线下课</router-link>
+            <router-link class="left" @click.native="removePageIndex()" :to="{name: 'robotCourse'}">机器人专区</router-link>
+            <router-link class="left" @click.native="removePageIndex()" :to="{name: 'zjLink'}">专家连线</router-link>
         </div>
         <!--轮播-->
         <banner type="3"></banner>
@@ -60,7 +60,7 @@
                 pageInfo: {
                     total: 0,
                     pageSize: 8,
-                    currentPage: 1
+                    currentPage: this.$helper.utils.storage.get('PageIndex') || 1
                 },
                 // 平台分类
                 categories: [],
@@ -91,7 +91,7 @@
                     cat: 1,
                     type: this.type,
                     live_status: this.liveStatus,
-                    page: this.pageInfo.currentPage,
+                    page: this.$helper.utils.storage.get('PageIndex') || this.pageInfo.currentPage,
                     page_size: this.pageInfo.pageSize,
                 }).then(resp => {
                     if (resp.status === 1) {
@@ -108,6 +108,7 @@
                 });
             },
             changePage(page) {
+                this.$helper.utils.storage.set('PageIndex',page);
                 this.pageInfo.currentPage = page;
                 this.getList();
             },
@@ -129,6 +130,9 @@
             search() {
                 this.$router.push({name: 'courseSearch', params: {type: 1, searchStr: this.keywords}});
             },
+            removePageIndex() {
+                sessionStorage.removeItem('PageIndex');
+            }
         },
     }
 </script>

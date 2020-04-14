@@ -65,7 +65,7 @@
                 rules:{
                     phoneNum:[
                         { required: true, message: '请输入手机号', trigger: 'blur' },
-                        { pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }
+                        { pattern: /^1[345789]\d{9}$/, message: '请输入正确的手机号' }
                     ],
                     validate:[
                         { required: true, message: '请输入验证码', trigger: 'blur' },
