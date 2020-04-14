@@ -15,7 +15,7 @@
         <div class="examInp-tips" v-if="formType"><div class="icon examInfor"></div><span>您还未完善信息，请先完善</span><div class="icon examStudy2"></div><el-button class="goToExam" type="primary" @click="$router.push({path: 'examinfor', query: { address_id: this.$route.query.address_id}})">去完善信息</el-button></div>
 
         <!-- 去考试Tips -->
-        <div class="examStudy-tips" v-if="xueShiType">
+        <!-- <div class="examStudy-tips" v-if="xueShiType">
             <div class="icon examStudy2"></div>
             <span>
                 您已学{{ classHour[2] - classHour[0] <= 0 ? '满' : '习'}}
@@ -24,16 +24,21 @@
                 <span v-else>离获取证书还剩<span class="examStudy-red">{{ classHour[1] }}</span>个学分</span>
             </span>
             <el-button v-if="disabled" class="goToExam" type="primary" @click="goToExam()">去学习</el-button>
-        </div>
+        </div> -->
 
         <!-- 课程列表 -->
          <!-- v-html="dataList" -->
-        <div class="data-list-box">
-            <h2 class="years">2019年度</h2>
-            <p class="xueFen">您已学满<span>91</span>学分，可以获取证书</p>
+        <div class="data-list-box" v-for="i in dataList" :key="i.id">
+            <h2 class="years">{{ i.year }}年度</h2>
+            <p class="xueFen">
+                您已学{{ i.times - i.time <= 0 ? '满' : '习'}}
+                <span class="examStudy-red">{{ i.time }}</span>学分，
+                <span v-if="i.times - i.time <= 0">可以获取证书</span>
+                <span v-else>离获取证书还剩<span class="examStudy-red">{{ i.last_time }}</span>个学分</span>
+            </p>
             <p class="Tips">您可点击下面的课程进行购买</p>
             <div class="data-list clear">
-                <course-item class="left" v-for="item in dataList" :key="item.id" :course-item="item"></course-item>
+                <course-item class="left" v-for="item in i.course_list" :key="item.id" :course-item="item"></course-item>
             </div>
         </div>
         
@@ -68,9 +73,9 @@ export default {
         this.getForm();
         this.xueFenType();
         // this.getList();
-        indexApi.index().then(res => {
-            this.dataList = res.data.course_type1;
-        })
+        // indexApi.index().then(res => {
+        //     this.dataList = res.data.course_type1;
+        // })
     },
     methods: {
         getForm() {
@@ -90,13 +95,7 @@ export default {
                 address_id: this.$route.query.address_id
             }).then(resp => {
                 if (resp.status === 1) {
-                    this.classHour[0] = resp.data.time;
-                    this.classHour[1] = resp.data.last_time;
-                    this.classHour[2] = resp.data.times;
-                    resp.data.times - resp.data.time <= 0 ? this.disabled = false : this.disabled = true;
-                    this.xueShiType = true;
-                } else {
-                    this.xueShiType = false;
+                    this.dataList = resp.data;
                 }
             });
         },
