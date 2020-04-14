@@ -31,19 +31,23 @@
         <div class="data-list-box" v-for="i in dataList" :key="i.id">
             <h2 class="years">{{ i.year }}年度</h2>
             <p class="xueFen">
-                您已学{{ i.times - i.time <= 0 ? '满' : '习'}}
+                <!-- 您已学{{ i.times - i.time <= 0 ? '满' : '习'}}
                 <span class="examStudy-red">{{ i.time }}</span>学分，
                 <span v-if="i.times - i.time <= 0">可以获取证书</span>
-                <span v-else>离获取证书还剩<span class="examStudy-red">{{ i.last_time }}</span>个学分</span>
+                <span v-else>离获取证书还剩<span class="examStudy-red">{{ i.last_time }}</span>个学分</span> -->
+                您已学习 <span class="examStudy-red">{{ i.time }}</span> 学分，其中，
+                <span v-if="i.time_detail.must_common_course==0?false:true" class="examStudy-red">公需科目（必修）：{{ i.time_detail.must_common_course }}学分；</span>
+                <span v-if="i.time_detail.select_common_course==0?false:true" class="examStudy-red">公需科目（选修）：{{ i.time_detail.select_common_course }}学分；</span>
+                <span v-if="i.time_detail.must_major_course==0?false:true" class="examStudy-red">专业科目：{{ i.time_detail.must_major_course }}学分；</span>
             </p>
             <p class="Tips">您可点击下面的课程进行购买</p>
             <div class="data-list clear">
                 <course-item class="left" v-for="item in i.course_list" :key="item.id" :course-item="item"></course-item>
             </div>
         </div>
-        
+
         <!-- <pagination :pageInfo="pageInfo" @change-page="changePage"></pagination> -->
-        
+
     </div>
 </template>
 <script>
@@ -118,7 +122,7 @@ export default {
                 }
             });
         },
-        
+
         // //分页
         // changePage(page) {
         //     this.pageInfo.currentPage = page;
@@ -184,7 +188,7 @@ export default {
                 margin-left: 69px;
             }
         }
-        
+
     }
     .data-list-box{
         margin-bottom: 30px;
@@ -209,7 +213,7 @@ export default {
             min-height: 300px;
         }
     }
-    
+
     .examInp-tips{
         display: block;
         height: 18px;
@@ -217,7 +221,7 @@ export default {
         font-size: 16px;
         line-height: 18px;
         padding-top:42px;
-        margin-bottom: 33px; 
+        margin-bottom: 33px;
         .examInfor {
             @include size (18px, 18px);
             vertical-align: middle;
@@ -241,6 +245,8 @@ export default {
         margin-top: 20px;
         .examStudy-red{
             color: #E60012;
+            font-size: 16px;
+            font-weight: bold;
         }
         .examStudy {
             @include size (18px, 18px);
@@ -248,7 +254,7 @@ export default {
             margin-right: 8px;
             margin-top: -2px;
         }
-        
+
     }
     .goToExam{
         width: 138px;
