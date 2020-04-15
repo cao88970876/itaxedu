@@ -4,11 +4,11 @@
         <navigation class="mt-20"></navigation>
         <follow-box :id="this.$route.query.address_id || '179'"></follow-box>
         <div class="follow-nav clear mt-20">
-            <router-link class="left" :to="{path: 'examNote', query: { address_id: this.$route.query.address_id || '179'}}">考试须知</router-link>
+            <router-link class="left" :to="{path: 'examNote', query: { address_id: this.$route.query.address_id || '179'}}">规则须知</router-link>
             <router-link class="left" :to="{path: 'examinfor', query: { address_id: this.$route.query.address_id || '179'}}">完善信息</router-link>
             <router-link class="left" :to="{path: 'examStudy', query: { address_id: this.$route.query.address_id || '179'}}">课程学习</router-link>
             <router-link class="left" :to="{path: 'examCertificate', query: { address_id: this.$route.query.address_id || '179'}}">生成证书</router-link>
-            <router-link class="left" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link>
+            <!-- <router-link class="left" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link> -->
         </div>
         <div class="entranceBox">
             <div v-for="(i, index) in entranceList" :key="index" @click="openEntrance(i.id)"><img :src="i.pic" :alt="i.name" :data-id="i.id"></div>
@@ -105,7 +105,7 @@ export default {
                     margin-left: 69px;
                 }
             }
-            
+
         }
         .entranceBox{
             display: flex;
@@ -126,8 +126,8 @@ export default {
                 }
             }
         }
-        
-        
+
+
     }
 </style>
 

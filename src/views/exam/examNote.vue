@@ -4,19 +4,20 @@
         <navigation class="mt-20"></navigation>
         <follow-box :id="this.$route.query.address_id || address_id"></follow-box>
         <div class="follow-nav clear mt-20">
-            <router-link class="left" :to="{path: 'examNote', query: { address_id: address_id}}">考试须知</router-link>
+            <router-link class="left" :to="{path: 'examNote', query: { address_id: address_id}}">规则须知</router-link>
             <router-link class="left" :to="{path: 'examinfor', query: { address_id: address_id}}">完善信息</router-link>
             <router-link class="left" :to="{path: 'examStudy', query: { address_id: address_id}}">课程学习</router-link>
             <router-link class="left" :to="{path: 'examCertificate', query: { address_id: address_id}}">生成证书</router-link>
-            <router-link class="left" :to="{path: 'examEntrance', query: { address_id: address_id}}">考试</router-link>
+            <!-- <router-link class="left" :to="{path: 'examEntrance', query: { address_id: address_id}}">考试</router-link> -->
         </div>
         <div class="icon follow1"></div>
         <div class="exam-note">
             <div class="icon follow2 left"></div>
             <div class="follow-content left">
-                <p>考试须知</p>
+                <!-- <p>考试须知</p>
                 <p>学员学满22.5小时后，即可得到90学分，学分同时提交至财务部门</p>
-                <p>（学习之前请先完善信息，否则会影响生成证书，请点击下方按钮进行完善信息）</p>
+                <p>（学习之前请先完善信息，否则会影响生成证书，请点击下方按钮进行完善信息）</p> -->
+                <p v-html="ruleMessage"></p>
                 <router-link class="follow-content left" :to="{path: 'examinfor', query: { address_id: address_id}}"><span>完善信息</span><img src="../../assets/image/exam-follow-btn.png" alt=""></router-link>
             </div>
         </div>
@@ -35,6 +36,7 @@ export default {
                 'gd.itaxedu.com': "3357",
                 'sz.itaxedu.com': "4500"
             },
+            ruleMessage:'',
             address_id: this.$route.query.address_id || '179'
         }
     },
@@ -60,6 +62,7 @@ export default {
             }
         }
         this.addressUrl();
+        this.getRuleMessage();
 
     },
     methods: {
@@ -71,6 +74,17 @@ export default {
                 }
                 return;
             }
+        },
+        getRuleMessage(){
+            examApi.rule({
+                address_id:this.$route.query.address_id
+            }).then(resp=>{
+                if(resp.status===2){
+                    this.ruleMessage = '未配置规则'
+                }else{
+                    this.ruleMessage = resp.data
+                }
+            });
         },
         //获取地址传参数
         getQueryString(name) {
@@ -85,7 +99,7 @@ export default {
 
     .exampage{
 
-       
+
 
         .follow-nav {
             padding-left: 20px;
@@ -110,7 +124,7 @@ export default {
                     margin-left: 69px;
                 }
             }
-            
+
         }
 
         .follow1 {
@@ -156,7 +170,7 @@ export default {
                 }
             }
         }
-        
+
     }
 </style>
 
