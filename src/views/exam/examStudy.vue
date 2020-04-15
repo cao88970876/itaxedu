@@ -4,11 +4,11 @@
         <navigation class="mt-20"></navigation>
         <follow-box :id="this.$route.query.address_id"></follow-box>
         <div class="follow-nav clear mt-20">
-            <router-link class="left" :to="{path: 'examNote', query: { address_id: this.$route.query.address_id}}">考试须知</router-link>
+            <router-link class="left" :to="{path: 'examNote', query: { address_id: this.$route.query.address_id}}">规则须知</router-link>
             <router-link class="left" :to="{path: 'examinfor', query: { address_id: this.$route.query.address_id}}">完善信息</router-link>
             <router-link class="left" :to="{path: 'examStudy', query: { address_id: this.$route.query.address_id}}">课程学习</router-link>
             <router-link class="left" :to="{path: 'examCertificate', query: { address_id: this.$route.query.address_id}}">生成证书</router-link>
-            <router-link class="left" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link>
+            <!-- <router-link class="left" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link> -->
         </div>
 
         <!-- 完善信息Tips -->
