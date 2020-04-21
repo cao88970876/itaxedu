@@ -17,7 +17,7 @@
                      :to="{name: 'storeCourse', params: {id:courseDetail.uid},query: {isFav:courseDetail.is_collect}}"
                      :store-obj="{id: courseDetail.uid,name:courseDetail.store_name,face:courseDetail.store_face}">
         </store-block>
-        <div class="course-info clear mt-20 pb-20">
+        <div class="course-info clear mt-20 pb-20" id="fixedCard" :class="{'isFixed':fixed}">
             <div class="video left">
                 <dy-video :src="videoUrl" :poster="courseDetail.thumb" :limit-time="courseDetail.shikan_time" :time="time" @current-time="watchProgress" @intercept="intercept"></dy-video>
                 <div class="buy-tip pointer" @click="buy" :class="{show: isPause}">购买后继续观看</div>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="course-tab">
+        <div class="course-tab" :class="{'isPadding':fixed}">
             <tab :active="tabActive" @get-tab-id="changeTab">
                 <tab-item heading="课程介绍">
                     <div class="course-introduction">
@@ -206,7 +206,9 @@
                 question_id:"",
                 time:3,
                 newTime:0,
-                players:null
+                players:null,
+                offsetTop:0,
+                fixed:false,
             }
         },
         computed: {
@@ -218,12 +220,24 @@
             this.tabActive = this.$route.params.tabId * 1
         },
         mounted() {
+            window.addEventListener('scroll', this.initHeight)
+            this.$nextTick(()=>{
+                //获取到达页面顶端的值
+                var height = document.getElementById("fixedCard")
+                this.offsetTop = height.offsetTop;
+            })
             this.getCourseDetail()
             this.getTeacherInfo()
             this.getCommentList()
             this.getQuestionList()
         },
         methods: {
+            initHeight(){
+                //兼容性，获取页面滚动距离
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+                //判断滚动距离是否大于元素到顶端距离
+                this.fixed = scrollTop>this.offsetTop?true:false;
+            },
             selectQuestion(item){
                 this.question_id=item.id
                 console.log(this.question_id,this.isPublic)
@@ -505,11 +519,18 @@
             vertical-align: bottom;
             margin-right: 10px;
         }
-
+        .isPadding{
+            padding-top: 425px;
+        }
         .course-info {
             border-bottom: 5px solid #eee;
             @include borderBox();
-
+            &.isFixed{
+                position: fixed;
+                top: 0;
+                z-index: 1000;
+                background: #fff;
+            }
             .video {
                 @include size(720px, 400px);
                 background-color: #ccc;
