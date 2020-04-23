@@ -95,7 +95,7 @@
                 <tab-item :show="courseDetail.is_one===2" heading="课程目录">
                     <div class="course-table">
                         <ul class="clear">
-                            <li class="left pointer " v-for="item in courseTable" @click="changeVideo(item)">
+                            <li class="left pointer " :class="{cur: courseTableCur == index}" v-for="(item, index) in courseTable" @click="changeVideo(item, index)">
                                 <div style="width:100%" class="table-title ellipsis " v-text="item.title"></div>
                                 <div class="clear gray-font">
                                     <div class="left"><span v-text="item.study_count"></span>人已学过</div>
@@ -209,6 +209,7 @@
                 players:null,
                 offsetTop:0,
                 fixed:false,
+                courseTableCur: 0
             }
         },
         computed: {
@@ -468,8 +469,9 @@
                     
                 }
             },
-            changeVideo(item) {
+            changeVideo(item, index) {
                 // if (this.videoUrl === item.video_url) return
+                this.courseTableCur = index
                 this.isPause = false
                 this.videoUrl = item.video_url
                 this.videoId = item.id
@@ -530,6 +532,9 @@
                 top: 0;
                 z-index: 1000;
                 background: #fff;
+                box-shadow:15px 0 15px 0px #fff, -15px 0 15px 0px #fff;
+                margin-top: 0 !important;
+                padding-top: 20px !important;
             }
             .video {
                 @include size(720px, 400px);
@@ -759,6 +764,17 @@
                 & > li {
                     padding: 10px;
                     line-height: 30px;
+                    &.cur{
+                        background: rgba(255, 0, 0, .5);
+                        div{
+                            color: #fff;
+                        }
+                        .gray-font{
+                            div{
+                                color: #fff;
+                            }
+                        }
+                    }
                 }
                 .table-title {
                     @include size(100px, auto);
