@@ -22,7 +22,13 @@
                             <span>邮箱：bufan@cctax.net</span>
                         </div>
                     </div>
-                    <div class="right"></div>
+                    <div class="right">
+                        <div class="downLoadCode">
+                            <img src="../../assets/image/loadCode.png">
+                            <p>安卓下载</p>
+                            <p>手机浏览器扫码下载</p>
+                        </div>
+                    </div>
                 </section>
             </div>
             <div class="company-info">
@@ -78,6 +84,23 @@
                 a{
                     color: #fff;
                     text-decoration: none;
+                }
+            }
+            .right{
+                .downLoadCode{
+                    width: 200px;
+                    text-align: center;
+                    img{
+                        display: block;
+                        width: 100px;
+                        margin: 0 auto;
+                    }
+                    p{
+                        line-height: 24px;
+                        font-size: 14px;
+                        color: #fff;
+                        margin: 0;
+                    }
                 }
             }
         }

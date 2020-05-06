@@ -5,13 +5,13 @@
             <!--切换按钮-->
             <ul class="tab">
                 <li>
-                    <router-link :to="{name: 'login'}">账号密码登录</router-link>
+                    <router-link :to="{name: 'login', query: { address_id: $route.query.address_id || ''}}">账号密码登录</router-link>
                 </li>
                 <li>
-                    <router-link :to="{name: 'numlogin'}">手机号登录</router-link>
+                    <router-link :to="{name: 'numlogin', query: { address_id: $route.query.address_id || ''}}">手机号登录</router-link>
                 </li>
                 <li>
-                    <router-link :to="{name: 'idcardlogin'}">身份证登录</router-link>
+                    <router-link :to="{name: 'idcardlogin', query: { address_id: $route.query.address_id || ''}}">身份证登录</router-link>
                 </li>
             </ul>
             <div class="numlogin_inp">
@@ -131,7 +131,7 @@
                                 if(this.$helper.utils.storage.get('loginLink')){
                                     let loginLink = this.$helper.utils.storage.get('loginLink');
                                     sessionStorage.removeItem('loginLink');
-                                    this.$router.push({name: loginLink});
+                                    this.$router.push({name: loginLink, query: { address_id: this.$route.query.address_id || ''}});
                                 }else{
                                     this.$router.push({name: 'index'})
                                 }

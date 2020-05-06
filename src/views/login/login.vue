@@ -5,13 +5,13 @@
             <!--切换按钮-->
             <ul class="tab">
                 <li class="tab_active">
-                    <router-link :to="{name: 'login'}">账号密码登录</router-link>
+                    <router-link :to="{name: 'login', query: { address_id: $route.query.address_id || ''}}">账号密码登录</router-link>
                 </li>
                 <li>
-                    <router-link :to="{name: 'numlogin'}">手机号登录</router-link>
+                    <router-link :to="{name: 'numlogin', query: { address_id: $route.query.address_id || ''}}">手机号登录</router-link>
                 </li>
                 <li>
-                    <router-link :to="{name: 'idcardlogin'}">身份证登录</router-link>
+                    <router-link :to="{name: 'idcardlogin', query: { address_id: $route.query.address_id || ''}}">身份证登录</router-link>
                 </li>
             </ul>
             <div style="padding: 12px;background: #FFFED5;border-radius: 6px;margin-bottom: 19px;">
