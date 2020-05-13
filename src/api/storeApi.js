@@ -5,7 +5,7 @@ export default utilsApi.createApi({
     // 点击关注/取消
     favStore: ['get', '/api/recruit/user_attention/attention'],
     myFocus: ['get', '/api/recruit/user_attention/index_pc'],
-    xuefenNotify: ['get', '/api/admin_root/xuefen_notify/list'],
+    xuefenNotify: ['get', '/api/admin_root/xuefen_notify/index'],
     notifyPage: ['get', '/api/admin_root/xuefen_notify/page'],
     notifyPageDetail: ['get', '/api/admin_root/xuefen_notify/detail'],
 })

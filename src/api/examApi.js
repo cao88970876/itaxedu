@@ -1,6 +1,8 @@
 import utilsApi from '../assets/js/utils'
 
 export default utilsApi.createApi({
+    // 获取规则
+    rule: ['get', '/api/admin_root/xuefen_rule/index'],
     // 获取表单
     getForm: ['get', '/api/admin_root/xuefen/index'],
     // 提交表单

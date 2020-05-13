@@ -443,7 +443,7 @@
                         { required: true, message: '请选择您的工作年限', trigger: 'change' }
                     ],
                     phone: [
-                        {pattern: /^[1][3,4,5,7,8][0-9]{9}$/, required: true, message: '请输入正确的电话号码', trigger: 'blur',}
+                        {pattern: /^1[345789]\d{9}$/, required: true, message: '请输入正确的电话号码', trigger: 'blur',}
                     ],
                 },
                 experiences: {
