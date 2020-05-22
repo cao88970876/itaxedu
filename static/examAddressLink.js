@@ -1,6 +1,6 @@
 const addressLink = [
     {
-        province: '直辖市',
+        province: '重点城市',
         sify: [
             {
                 name: '天津市',

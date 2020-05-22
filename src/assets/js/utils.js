@@ -7,8 +7,8 @@ import Vue from 'vue';
 import ajax from './axios.package'
 
 const utils = {
-    // api: 'http://itaxedu.com',
-   api: 'http://119.57.167.245:8080',
+    api: 'http://itaxedu.com',
+//    api: 'http://119.57.167.245:8080',
     appkey: '3265393086',
     storage: {
         get: function (str) {

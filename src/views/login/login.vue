@@ -17,8 +17,8 @@
             <div style="padding: 12px;background: #FFFED5;border-radius: 6px;margin-bottom: 19px;">
                     <img style="height:25px;vertical-align: middle;" src='../../assets/image/th.png' />
                   
-                    在天津财政局备案过的会计继续教育人员请用姓名和身份证登录
-                     <br />其他地区请用账号密码登录或手机号登录
+                    登录时请用账号密码或手机号登录
+                     <br />（天津财政局备案过的请用姓名和身份证登录）
             </div>
             <!--登录框-->
             <div class="login_user">
