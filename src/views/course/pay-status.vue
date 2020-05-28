@@ -36,7 +36,7 @@
         <self-modal heading="账号转赠" :show.sync="accountGiveModal">
             <div class="p-20">
                 <el-form ref="form" :model="form" label-width="100px">
-                    <el-form-item label="手机号码" :rules="[{required: true,message: '该项不能为空'},{pattern: /^1[345789]\d{9}$/,message:'请输入正确的手机号码'}]" prop="tel">
+                    <el-form-item label="手机号码" :rules="[{required: true,message: '该项不能为空'},{pattern: /^1[3456789]\d{9}$/,message:'请输入正确的手机号码'}]" prop="tel">
                         <el-input v-model="form.tel" placeholder="请输入要转赠他人手机号码"></el-input>
                     </el-form-item>
                 </el-form>

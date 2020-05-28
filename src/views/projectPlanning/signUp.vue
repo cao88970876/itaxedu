@@ -71,7 +71,7 @@
                         {required: true, message: '请输入姓名', trigger: 'blur'}
                     ],
                     phone: [
-                        {pattern: /^1[345789]\d{9}$/, message: '请输入正确的手机号'},
+                        {pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号'},
                         {required: true, message: '请输入手机号', trigger: 'blur'},
                         // { pattern:/^[a-zA-Z]w{1,4}$/, message: '以字母开头，长度在2-5之间， 只能包含字符、数字和下划线'}
                     ],
