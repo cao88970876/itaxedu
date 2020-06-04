@@ -168,6 +168,10 @@
                     this.$router.push({path: 'exam', query: { address_id: '8650'}})
                     this.$helper.utils.storage.set('addressId','8650')
                     break;
+                case 'hn.itaxedu.com':
+                    this.$router.push({path: 'exam', query: { address_id: '10450'}})
+                    this.$helper.utils.storage.set('addressId','10450')
+                    break;
                 default:
                     break;
             }

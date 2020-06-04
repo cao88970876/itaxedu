@@ -90,7 +90,7 @@ export default {
                     align-content: flex-start;
                     a{
                         display: block;
-                        width: 90px;
+                        min-width: 90px;
                         height: 30px;
                         margin-right:10px;
                         line-height: 28px;
@@ -101,6 +101,7 @@ export default {
                         color: #333;
                         box-sizing: border-box;
                         margin-bottom: 10px;
+                        padding: 0 8px;
                     }
                 }
             }
