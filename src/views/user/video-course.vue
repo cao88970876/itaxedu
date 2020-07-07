@@ -3,7 +3,7 @@
         <store-block class="mt-20"
                      :to="{name: 'storeCourse', params: {id:courseDetail.uid,isFav:courseDetail.is_collect}}"
                      :store-obj="{id: courseDetail.uid,name:courseDetail.store_name,face:courseDetail.store_face}"></store-block>
-        <div class="course-info clear mt-20 pb-20">
+        <div class="course-info clear mt-20 pb-20" id="fixedCard" :class="{'isFixed':fixed}">
             <div class="video left">
                 <dy-video ref="myVideo" :src="videoUrl" :poster="courseDetail.thumb" @current-time="watchProgress"></dy-video>
             </div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="course-tab">
+        <div class="course-tab" :class="{'isPadding':fixed}">
             <tab :active="tabActive" @get-tab-id="changeTab">
                 <tab-item heading="课程介绍">
                     <div class="course-introduction">
@@ -76,7 +76,7 @@
                 <tab-item :show="courseDetail.is_one===2" heading="课程目录">
                     <div class="course-table">
                         <ul class="clear">
-                            <li class="left pointer" v-for="item in courseTable" @click="changeVideo(item)">
+                            <li class="left pointer" :class="{cur: courseTableCur == index}" v-for="(item, index) in courseTable" @click="changeVideo(item, index)" :key="index">
                                 <div style="width:100%"  class="table-title ellipsis" v-text="item.title"></div>
                                 <div class="clear gray-font">
                                     <div class="left"><span v-text="item.study_count"></span>人已学过</div>
@@ -88,7 +88,7 @@
                 </tab-item>
                 <tab-item heading="评价">
                     <div class="course-comment mt-10">
-                        <div class="comment-item" v-for="item in commentList">
+                        <div class="comment-item" v-for="item in commentList" :key="item.nickname">
                             <div class="comment-info">
                                 <div class="clear">
                                     <div class="user-img left">
@@ -159,7 +159,10 @@
                 question_id:"",
                 time:null,
                 newTime:0,
-                players:null
+                players:null,
+                offsetTop:0,
+                fixed:false,
+                courseTableCur: 0
             }
         },
         computed: {
@@ -172,12 +175,24 @@
             this.tabActive = this.$route.params.tabId * 1
         },
         mounted() {
+            window.addEventListener('scroll', this.initHeight)
+            this.$nextTick(()=>{
+                //获取到达页面顶端的值
+                var height = document.getElementById("fixedCard")
+                this.offsetTop = height.offsetTop;
+            })
             this.getCourseDetail()
             this.getTeacherInfo()
             this.getCommentList()
             this.getQuestionList()
         },
         methods: {
+            initHeight(){
+                //兼容性，获取页面滚动距离
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+                //判断滚动距离是否大于元素到顶端距离
+                this.fixed = scrollTop>this.offsetTop?true:false;
+            },
             selectQuestion(item){
                 this.question_id=item.id
                 console.log(this.question_id,this.isPublic)
@@ -368,12 +383,12 @@
                   
                 }
             },
-            changeVideo(item) {
+            changeVideo(item, index) {
                 // if (this.videoUrl === utilsApi.api + item.video) return
                 // this.isPause = false
                 // this.videoUrl = utilsApi.api + item.video
                 // this.videoId = item.id
-
+                this.courseTableCur = index
                 this.isPause = false
                 this.videoUrl = item.video_url
                 this.videoId = item.id
@@ -397,6 +412,9 @@
 <style lang="scss" scoped>
     @import "../../assets/scss/constant";
     @import "../../assets/scss/mixin";
+    .isPadding{
+        padding-top: 425px;
+    }
     .popup {
         .popup_header {
             text-align: center;
@@ -459,7 +477,15 @@
         .course-info {
             border-bottom: 5px solid #eee;
             @include borderBox();
-
+            &.isFixed{
+                position: fixed;
+                top: 0;
+                z-index: 1000;
+                background: #fff;
+                box-shadow:15px 0 15px 0px #fff, -15px 0 15px 0px #fff;
+                margin-top: 0 !important;
+                padding-top: 20px !important;
+            }
             .video {
                 @include size(720px, 400px);
                 background-color: #ccc;
@@ -646,6 +672,17 @@
                 & > li {
                     padding: 10px;
                     line-height: 30px;
+                    &.cur{
+                        background: rgba(255, 0, 0, .5);
+                        div{
+                            color: #fff;
+                        }
+                        .gray-font{
+                            div{
+                                color: #fff;
+                            }
+                        }
+                    }
                 }
                 .table-title {
                     @include size(100px, auto);
