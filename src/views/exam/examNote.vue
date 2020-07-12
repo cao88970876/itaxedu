@@ -34,7 +34,11 @@ export default {
             address: {
                 'sichuan.itaxedu.com': "3350",
                 'gd.itaxedu.com': "3357",
-                'sz.itaxedu.com': "4500"
+                'sz.itaxedu.com': "4500",
+                "jx.itaxedu.com": "8435",
+                "tj.itaxedu.com": "179",
+                "bj.itaxedu.com": "8650",
+                "hn.itaxedu.com": "10450",
             },
             ruleMessage:'',
             address_id: this.$route.query.address_id || '179'
