@@ -7,10 +7,11 @@
             <router-link class="left" :to="{path: 'examNote', query: { address_id: address_id}}">规则须知</router-link>
             <router-link class="left" :to="{path: 'examinfor', query: { address_id: address_id}}">完善信息</router-link>
             <router-link class="left" :to="{path: 'examStudy', query: { address_id: address_id}}">课程学习</router-link>
+            <router-link class="left" v-if="address_id == '10450'" :to="{path: 'examEntrance', query: { address_id: address_id}}">考试</router-link>
             <router-link class="left" :to="{path: 'examCertificate', query: { address_id: address_id}}">生成证书</router-link>
-            <!-- <router-link class="left" :to="{path: 'examEntrance', query: { address_id: address_id}}">考试</router-link> -->
+            
         </div>
-        <div class="icon follow1"></div>
+        <div class="icon follow1" :class="{ follow3: address_id == '10450' }"></div>
         <div class="exam-note">
             <div class="icon follow2 left"></div>
             <div class="follow-content left">
@@ -75,8 +76,8 @@ export default {
             for(let i in address){
                 if(document.domain == i){
                     this.address_id = address[i];
+                    return;
                 }
-                return;
             }
         },
         getRuleMessage(){
@@ -132,6 +133,11 @@ export default {
         }
 
         .follow1 {
+            @include size (1200px, 69px);
+            display: block;
+            margin: 43px 0 65px;
+        }
+        .follow3 {
             @include size (1200px, 69px);
             display: block;
             margin: 43px 0 65px;
