@@ -40,6 +40,7 @@
                 <span v-if="i.time_detail.must_common_course==0?false:true" class="examStudy-red">公需科目（必修）：{{ i.time_detail.must_common_course }}学分；</span>
                 <span v-if="i.time_detail.select_common_course==0?false:true" class="examStudy-red">公需科目（选修）：{{ i.time_detail.select_common_course }}学分；</span>
                 <span v-if="i.time_detail.must_major_course==0?false:true" class="examStudy-red">专业科目：{{ i.time_detail.must_major_course }}学分；</span>
+                <span v-if="i.time_detail.must_major_course_i==0?false:true" class="examStudy-red">专业科目I：{{ i.time_detail.must_major_course_i }}学分；</span>
             </p>
             <p class="Tips">您可点击下面的课程进行购买</p>
             <div class="data-list clear">
