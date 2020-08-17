@@ -443,8 +443,6 @@
                 
                 this.players=player
                 const curTime = Math.ceil(Math.ceil(time) / 60)
-                console.log(curTime)
-                console.log(this.courseDetail.tanchuang*1)
                 let addressId = this.$helper.utils.storage.get('addressId');
                 if((curTime / this.courseDetail.tanchuang*1) % 1 === 0 &&this.courseDetail.is_buy && this.answer && (addressId == '8435' || addressId == '10450')){
                     this.showModal=true
