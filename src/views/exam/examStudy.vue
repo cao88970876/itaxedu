@@ -7,8 +7,9 @@
             <router-link class="left" :to="{path: 'examNote', query: { address_id: this.$route.query.address_id}}">规则须知</router-link>
             <router-link class="left" :to="{path: 'examinfor', query: { address_id: this.$route.query.address_id}}">完善信息</router-link>
             <router-link class="left" :to="{path: 'examStudy', query: { address_id: this.$route.query.address_id}}">课程学习</router-link>
+            <router-link class="left" v-if="this.$route.query.address_id == '10450'" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link>
             <router-link class="left" :to="{path: 'examCertificate', query: { address_id: this.$route.query.address_id}}">生成证书</router-link>
-            <!-- <router-link class="left" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link> -->
+            
         </div>
 
         <!-- 完善信息Tips -->
@@ -39,6 +40,7 @@
                 <span v-if="i.time_detail.must_common_course==0?false:true" class="examStudy-red">公需科目（必修）：{{ i.time_detail.must_common_course }}学分；</span>
                 <span v-if="i.time_detail.select_common_course==0?false:true" class="examStudy-red">公需科目（选修）：{{ i.time_detail.select_common_course }}学分；</span>
                 <span v-if="i.time_detail.must_major_course==0?false:true" class="examStudy-red">专业科目：{{ i.time_detail.must_major_course }}学分；</span>
+                <span v-if="i.time_detail.must_major_course_i==0?false:true" class="examStudy-red">专业科目I：{{ i.time_detail.must_major_course_i }}学分；</span>
             </p>
             <p class="Tips">您可点击下面的课程进行购买</p>
             <div class="data-list clear">

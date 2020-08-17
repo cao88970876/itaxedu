@@ -7,11 +7,15 @@
             <router-link class="left" :to="{path: 'examNote', query: { address_id: this.$route.query.address_id || '179'}}">规则须知</router-link>
             <router-link class="left" :to="{path: 'examinfor', query: { address_id: this.$route.query.address_id || '179'}}">完善信息</router-link>
             <router-link class="left" :to="{path: 'examStudy', query: { address_id: this.$route.query.address_id || '179'}}">课程学习</router-link>
+            <router-link class="left" v-if="this.$route.query.address_id == '10450'" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link>
             <router-link class="left" :to="{path: 'examCertificate', query: { address_id: this.$route.query.address_id || '179'}}">生成证书</router-link>
-            <!-- <router-link class="left" :to="{path: 'examEntrance', query: { address_id: this.$route.query.address_id || '179'}}">考试</router-link> -->
+            
         </div>
-        <div class="entranceBox">
+        <!-- <div class="entranceBox">
             <div v-for="(i, index) in entranceList" :key="index" @click="openEntrance(i.id)"><img :src="i.pic" :alt="i.name" :data-id="i.id"></div>
+        </div> -->
+        <div class="entranceBox2">
+            <div><img src="../../assets/image/entrance.jpg" @click="openEntrance2()"></div>
         </div>
     </div>
 </template>
@@ -73,6 +77,9 @@ export default {
                     });
                 }
             });
+        },
+        openEntrance2() {
+            window.open('http://test.itaxedu.com/index.php?exam-app-index-training&trid=12', '_blank');
         }
     }
 }
@@ -126,7 +133,14 @@ export default {
                 }
             }
         }
-
+        .entranceBox2{
+            padding: 20px 0;
+            img{
+                display: block;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+        }
 
     }
 </style>
