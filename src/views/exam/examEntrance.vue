@@ -15,7 +15,7 @@
             <div v-for="(i, index) in entranceList" :key="index" @click="openEntrance(i.id)"><img :src="i.pic" :alt="i.name" :data-id="i.id"></div>
         </div> -->
         <div class="entranceBox2">
-            <div><img src="../../assets/image/entrance.jpg" @click="openEntrance2()"></div>
+            <div><img src="../../assets/image/entrance0.png" @click="openEntrance2()"></div>
         </div>
     </div>
 </template>
@@ -79,7 +79,19 @@ export default {
             });
         },
         openEntrance2() {
-            window.open('http://test.itaxedu.com/index.php?exam-app-index-training&trid=12', '_blank');
+            examApi.openEntrance({
+                uid: this.userInfo.uid,
+                trid: 12
+            }).then(resp => {
+                if (resp.status === 1) {
+                    window.open('http://test.itaxedu.com/index.php?exam-app-index-training&trid=12', '_blank');
+                } else {
+                    this.$message({
+                        message: resp['msg'],
+                        type: 'error'
+                    });
+                }
+            });
         }
     }
 }
